@@ -58,6 +58,21 @@ dependencies {
 
 
 
+
+
+
+    implementation("androidx.camera:camera-core:1.3.4")
+    implementation("androidx.camera:camera-camera2:1.3.4")
+    implementation("androidx.camera:camera-lifecycle:1.3.4")
+    implementation("androidx.camera:camera-video:1.3.4")
+
+    implementation("androidx.camera:camera-view:1.3.4")
+    implementation("androidx.camera:camera-extensions:1.3.4")
+
+
+
+
+
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.22")
 //    implementation("com.google.protobuf:protobuf-java:3.19.3")
 

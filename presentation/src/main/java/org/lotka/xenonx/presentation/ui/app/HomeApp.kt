@@ -18,8 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
-import org.lotka.xenonx.presentation.screen.add_edit_note.AddEditNoteScreen
-import org.lotka.xenonx.presentation.screen.note.NotesScreen
+
 
 import org.lotka.xenonx.presentation.ui.navigation.ScreensNavigation
 
@@ -63,7 +62,7 @@ fun HomeApp(
                     route = ScreensNavigation.NoteScreen.route,
                 ) {
 
-              NotesScreen(navController = navController)
+
 
                 }
 
@@ -86,10 +85,7 @@ fun HomeApp(
                     )
                 ) {
                     val color = it.arguments?.getInt("noteColor") ?: -1
-                    AddEditNoteScreen(
-                        navController = navController,
-                        noteColor = color
-                    )
+
 
                 }
             }
