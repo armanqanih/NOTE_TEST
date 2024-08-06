@@ -8,7 +8,7 @@ dependencyResolutionManagement {
 
     }
 }
-rootProject.name = "NOTE_TEST"
+rootProject.name = "CHAT_APP"
 include ':app'
 include ':benchmark'
 include ':presentation'

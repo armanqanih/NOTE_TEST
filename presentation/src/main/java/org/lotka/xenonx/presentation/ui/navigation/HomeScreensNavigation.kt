@@ -1,13 +1,15 @@
 package org.lotka.xenonx.presentation.ui.navigation
 
 sealed class ScreensNavigation(val route: String) {
-
-
-    object NoteScreen : ScreensNavigation(route = "note_screen")
-    object AddEditNoteScreen : ScreensNavigation(route = "add_edit_notescreen")
-
-
-
-
-
+    object SplashScreen : ScreensNavigation(route = "splash_screen")
+    object LoginScreen : ScreensNavigation(route = "login_screen")
+    object RegisterScreen : ScreensNavigation(route = "register_screen")
+    object MainFeedScreen : ScreensNavigation(route = "mainFeed_screen")
+    object PostDetailScreen : ScreensNavigation(route = "post_detail_screen")
+    object ChatScreen : ScreensNavigation(route = "chat_screen")
+    object ProfileScreen : ScreensNavigation(route = "profile_screen")
+    object EditProfileScreen : ScreensNavigation(route = "edit_profile_screen")
+    object PersonListScreen : ScreensNavigation(route = "person_list_screen")
+    object CreatePostScreen : ScreensNavigation(route = "create_post_screen")
+    object SearchScreen : ScreensNavigation(route = "search_screen")
 }

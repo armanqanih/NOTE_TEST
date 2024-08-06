@@ -46,48 +46,18 @@ fun HomeApp(
 
 
     Scaffold(
-
         content = { _ ->
             NavHost(navController = navController,
-                startDestination = ScreensNavigation.NoteScreen.route,
-                enterTransition = {
-                    // you can change whatever you want transition
-                    EnterTransition.None
-                },
-                exitTransition = {
-                    // you can change whatever you want transition
-                    ExitTransition.None
-                }) {
+                startDestination = ScreensNavigation.SplashScreen.route) {
                 composable(
-                    route = ScreensNavigation.NoteScreen.route,
+                    route = ScreensNavigation.SplashScreen.route,
                 ) {
 
 
 
                 }
 
-                composable(
-                    route = ScreensNavigation.AddEditNoteScreen.route +
-                            "?noteId={noteId}&noteColor={noteColor}",
-                    arguments = listOf(
-                        navArgument(
-                            name = "noteId"
-                        ) {
-                            type = NavType.IntType
-                            defaultValue = -1
-                        },
-                        navArgument(
-                            name = "noteColor"
-                        ) {
-                            type = NavType.IntType
-                            defaultValue = -1
-                        },
-                    )
-                ) {
-                    val color = it.arguments?.getInt("noteColor") ?: -1
 
-
-                }
             }
 
         },
