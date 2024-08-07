@@ -113,6 +113,11 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation ("androidx.activity:activity-compose:1.8.0")
 
+
+    testImplementation("io.mockk:mockk:1.13.4") // Use the latest version of MockK
+    androidTestImplementation("io.mockk:mockk-android:1.13.4")
+
+
     // ConstraintLayout
     implementation ("androidx.constraintlayout:constraintlayout-compose:1.0.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
