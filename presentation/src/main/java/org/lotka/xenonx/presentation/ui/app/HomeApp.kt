@@ -18,7 +18,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
+import org.lotka.xenonx.presentation.screen.home.HomeScreen
 import org.lotka.xenonx.presentation.screen.login.LoginScreen
+import org.lotka.xenonx.presentation.screen.register.RegisterScreen
 import org.lotka.xenonx.presentation.screen.splash.SplashScreen
 
 
@@ -63,6 +65,20 @@ fun HomeApp(
                 ) {
 
                     LoginScreen(navController = navController)
+
+                }
+                composable(
+                    route = ScreensNavigation.RegisterScreen.route,
+                ) {
+
+                    RegisterScreen(navController = navController)
+
+                }
+                composable(
+                    route = ScreensNavigation.ChatScreen.route,
+                ) {
+
+                    HomeScreen()
 
                 }
 

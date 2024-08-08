@@ -1,4 +1,4 @@
-package org.lotka.xenonx.presentation.screen.login
+package org.lotka.xenonx.presentation.screen.register
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
@@ -28,32 +27,23 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import kotlinx.coroutines.launch
 import org.lotka.xenonx.presentation.R
 import org.lotka.xenonx.presentation.composable.StandardTextField
 import org.lotka.xenonx.presentation.ui.navigation.ScreensNavigation
 import org.lotka.xenonx.presentation.util.Dimension.SpaceLarge
 import org.lotka.xenonx.presentation.util.Dimension.SpaceMedium
 import org.lotka.xenonx.presentation.util.UiEvent
-
 @Composable
-fun LoginScreen(
+fun RegisterScreen(
     navController: NavController,
-    viewModel: LoginViewModel = hiltViewModel(),
+    viewModel: RegisterViewModel = hiltViewModel(),
 ) {
     val state = viewModel.state.collectAsState().value
     val scaffoldState = rememberScaffoldState()
-    val scope = rememberCoroutineScope()
 
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collect { event ->
@@ -65,12 +55,9 @@ fun LoginScreen(
         }
     }
 
-
-
-
     androidx.compose.material.Scaffold(
-        modifier = Modifier.fillMaxSize()
-        ,scaffoldState = scaffoldState
+        modifier = Modifier.fillMaxSize(),
+        scaffoldState = scaffoldState
     ) {
         Box(
             modifier = Modifier
@@ -90,16 +77,27 @@ fun LoginScreen(
                     .align(Alignment.Center)
             ) {
                 Text(
-                    text = stringResource(R.string.Login),
+                    text = stringResource(R.string.register),
                     style = MaterialTheme.typography.body1
                 )
 
                 Spacer(modifier = Modifier.height(SpaceMedium))
                 StandardTextField(
+                    value = state.email,
+                    hint = stringResource(R.string.enter_you_email),
+                    onValueChange = {
+                        viewModel.onEvent(RegisterEvent.EnterEmail(it))
+                    },
+                    singleLine = true,
+                    keyboardType = KeyboardType.Email,
+                    isError = false,
+                )
+                Spacer(modifier = Modifier.height(SpaceMedium))
+                StandardTextField(
                     value = state.userName,
                     hint = stringResource(R.string.enter_user_name),
                     onValueChange = {
-                        viewModel.onEvent(LoginEvent.EnterUserName(it))
+                        viewModel.onEvent(RegisterEvent.EnterUserName(it))
                     },
                     singleLine = true,
                     keyboardType = KeyboardType.Text,
@@ -110,35 +108,33 @@ fun LoginScreen(
                     value = state.password,
                     hint = stringResource(R.string.Password),
                     onValueChange = {
-                        viewModel.onEvent(LoginEvent.EnterPassword(it))
+                        viewModel.onEvent(RegisterEvent.EnterPassword(it))
                     },
                     singleLine = true,
                     keyboardType = KeyboardType.Password,
                     isError = false,
                 )
-                state?.error.let {
-                    if (it != null) {
+                state?.error?.let {
+                    if (it.isNotEmpty()) {
                         Text(
                             text = it,
                             color = MaterialTheme.colors.error
                         )
                     }
-
                 }
                 Spacer(modifier = Modifier.height(SpaceMedium))
                 Button(
-                    onClick = { viewModel.onEvent(LoginEvent.Login) },
+                    onClick = { viewModel.onEvent(RegisterEvent.Register) },
                     modifier = Modifier
                         .height(50.dp)
                         .width(120.dp)
                         .align(Alignment.End)
                         .clip(shape = RoundedCornerShape(8.dp))
                         .background(MaterialTheme.colors.primary),
-                    enabled = !state.isLoading && state.userName.isNotEmpty() && state.password.isNotEmpty()
-
+                    enabled = !state.isLoading && state.email.isNotEmpty() && state.userName.isNotEmpty() && state.password.isNotEmpty()
                 ) {
                     Text(
-                        text = stringResource(R.string.Login),
+                        text = stringResource(R.string.register),
                         style = MaterialTheme.typography.body1,
                     )
                 }
@@ -147,29 +143,18 @@ fun LoginScreen(
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
                 }
 
-                state.loginResponse?.let {
-                    Text(
-                        text = "Login successful! Token: ${it.token}",
-                        color = MaterialTheme.colors.primary,
-                        modifier = Modifier.align(Alignment.CenterHorizontally)
-                    )
-                    if (it.token == state.userName || it.token == state.password ){
-                        navController.navigate(ScreensNavigation.ChatScreen.route)
-                    }else{
-                        scope.launch {
-                            scaffoldState.snackbarHostState.showSnackbar(
-                                message = "Please Create An Account")
-                        }
-                    }
+                state.registerResponse?.let {
+                    // Navigate to the Login screen after successful registration
+                    navController.popBackStack()
+                    navController.navigate(ScreensNavigation.LoginScreen.route)
                 }
-
             }
 
             val signUpText = buildAnnotatedString {
-                append(stringResource(R.string.dont_have_an_account))
+                append(stringResource(R.string.already_have_an_account))
                 append(" ")
                 withStyle(style = SpanStyle(MaterialTheme.colors.primary)) {
-                    append(stringResource(R.string.signup))
+                    append(stringResource(R.string.Login))
                 }
             }
 
@@ -180,7 +165,8 @@ fun LoginScreen(
                     .align(Alignment.BottomCenter)
                     .padding(bottom = SpaceMedium),
                 onClick = {
-                    navController.navigate(ScreensNavigation.RegisterScreen.route)
+                    navController.popBackStack()
+                    navController.navigate(ScreensNavigation.LoginScreen.route)
                 }
             )
         }

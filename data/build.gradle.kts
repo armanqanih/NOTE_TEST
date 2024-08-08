@@ -99,6 +99,7 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx:24.10.2")
     implementation("com.google.firebase:firebase-storage:20.3.0")
     implementation("androidx.paging:paging-common-android:3.3.0")
+    implementation("com.google.firebase:firebase-crashlytics-buildtools:3.0.2")
     kapt("androidx.room:room-compiler:2.6.0")
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:2.6.0")
