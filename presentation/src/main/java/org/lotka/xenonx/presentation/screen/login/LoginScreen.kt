@@ -37,6 +37,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import kotlinx.coroutines.launch
 import org.lotka.xenonx.presentation.R
@@ -91,7 +92,8 @@ fun LoginScreen(
             ) {
                 Text(
                     text = stringResource(R.string.Login),
-                    style = MaterialTheme.typography.body1
+                    style = MaterialTheme.typography.body1,
+                    color = Color.White
                 )
 
                 Spacer(modifier = Modifier.height(SpaceMedium))

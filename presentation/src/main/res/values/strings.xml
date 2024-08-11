@@ -121,5 +121,10 @@
     <string name="register">Register</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="enter_you_email">Enter You Email</string>
+    <string name="liked">liked</string>
+    <string name="not_liked">not liked</string>
+    <string name="comment">Comment</string>
+    <string name="read_more">Read more</string>
+    <string name="liked_by_x_people">liked by %d people</string>
 
 </resources>

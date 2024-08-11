@@ -2,8 +2,6 @@ package org.lotka.xenonx.domain.usecase
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import org.lotka.xenonx.domain.model.LoginResponse
-import org.lotka.xenonx.domain.model.RegisterResponse
 import org.lotka.xenonx.domain.repository.AuthRepository
 import org.lotka.xenonx.domain.util.Resource
 import javax.inject.Inject

@@ -30,6 +30,7 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import org.lotka.xenonx.presentation.R
 import org.lotka.xenonx.presentation.composable.StandardTextField
@@ -78,7 +79,8 @@ fun RegisterScreen(
             ) {
                 Text(
                     text = stringResource(R.string.register),
-                    style = MaterialTheme.typography.body1
+                    style = MaterialTheme.typography.body1,
+                    color = Color.White
                 )
 
                 Spacer(modifier = Modifier.height(SpaceMedium))
@@ -90,7 +92,7 @@ fun RegisterScreen(
                     },
                     singleLine = true,
                     keyboardType = KeyboardType.Email,
-                    isError = false,
+                    error = state.emailError,
                 )
                 Spacer(modifier = Modifier.height(SpaceMedium))
                 StandardTextField(
@@ -101,7 +103,7 @@ fun RegisterScreen(
                     },
                     singleLine = true,
                     keyboardType = KeyboardType.Text,
-                    isError = false,
+                    error = state.userNameError,
                 )
                 Spacer(modifier = Modifier.height(SpaceMedium))
                 StandardTextField(
@@ -112,7 +114,7 @@ fun RegisterScreen(
                     },
                     singleLine = true,
                     keyboardType = KeyboardType.Password,
-                    isError = false,
+                    error = state.passwordError,
                 )
 
 
@@ -150,11 +152,7 @@ fun RegisterScreen(
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
                 }
 
-                state.registerResponse?.let {
-                    // Navigate to the Login screen after successful registration
-                    navController.popBackStack()
-                    navController.navigate(ScreensNavigation.LoginScreen.route)
-                }
+
             }
 
             val signUpText = buildAnnotatedString {

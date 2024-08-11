@@ -77,7 +77,8 @@ fun StandardTextField(
              IconButton(onClick = {
                onPasswordToggleClick(!showPasswordToggle)
              },
-             modifier = Modifier.semantics {
+             modifier = Modifier
+                 .semantics {
                  testTag = "password_toggle"
              }
 
@@ -88,7 +89,8 @@ fun StandardTextField(
                  }else{
                      Icons.Filled.VisibilityOff
 
-                 }, contentDescription ="password" )
+                 }, contentDescription ="password"
+                 )
              }
             }
         }

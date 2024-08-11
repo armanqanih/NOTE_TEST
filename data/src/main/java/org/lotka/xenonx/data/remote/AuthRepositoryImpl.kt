@@ -7,8 +7,6 @@ import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.auth.Inv
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
-import org.lotka.xenonx.domain.model.LoginResponse
-import org.lotka.xenonx.domain.model.RegisterResponse
 import org.lotka.xenonx.domain.repository.AuthRepository
 import org.lotka.xenonx.domain.util.Resource
 import javax.inject.Inject

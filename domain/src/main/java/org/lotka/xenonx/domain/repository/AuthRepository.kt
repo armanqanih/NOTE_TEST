@@ -2,8 +2,6 @@ package org.lotka.xenonx.domain.repository
 
 import android.provider.ContactsContract.CommonDataKinds.Email
 import kotlinx.coroutines.flow.Flow
-import org.lotka.xenonx.domain.model.LoginResponse
-import org.lotka.xenonx.domain.model.RegisterResponse
 import org.lotka.xenonx.domain.util.Resource
 
 interface AuthRepository {

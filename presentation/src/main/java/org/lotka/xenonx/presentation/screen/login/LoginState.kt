@@ -1,7 +1,5 @@
 package org.lotka.xenonx.presentation.screen.login
 
-import org.lotka.xenonx.domain.model.LoginResponse
-
 data class LoginState (
     val userName: String = "",
     val password: String = "",

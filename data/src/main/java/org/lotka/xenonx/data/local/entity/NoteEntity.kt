@@ -2,7 +2,6 @@ package org.lotka.xenonx.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import org.lotka.xenonx.domain.model.Note
 
 @Entity(tableName = "note")
 class NoteEntity (
