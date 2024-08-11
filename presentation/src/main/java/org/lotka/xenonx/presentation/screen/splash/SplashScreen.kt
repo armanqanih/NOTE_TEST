@@ -18,6 +18,8 @@ import androidx.compose.ui.util.packInts
 import androidx.core.animation.OvershootInterpolator
 import androidx.core.splashscreen.SplashScreen
 import androidx.navigation.NavController
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.time.delay
 import org.lotka.xenonx.presentation.R
 import org.lotka.xenonx.presentation.ui.navigation.ScreensNavigation
@@ -25,7 +27,8 @@ import org.lotka.xenonx.presentation.util.Constants.SPLASH_SCREEN_DURATION
 
 @Composable
 fun SplashScreen(
-  navController: NavController
+  navController: NavController,
+  dispatcher: CoroutineDispatcher = Dispatchers.Main
 ){
     Box(modifier = Modifier.fillMaxSize()
     , contentAlignment = Alignment.Center

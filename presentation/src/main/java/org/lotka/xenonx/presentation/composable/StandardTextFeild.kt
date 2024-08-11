@@ -1,5 +1,7 @@
 package org.lotka.xenonx.presentation.composable
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
@@ -23,6 +25,7 @@ import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import java.lang.Error
 
 @Composable
@@ -31,19 +34,19 @@ fun StandardTextField(
     value: String = "",
     hint: String = "",
     maxLength : Int = 40,
-    isError: Boolean = false,
+    error: String = "",
     onValueChange: (String) -> Unit,
     keyboardType: KeyboardType = KeyboardType.Text,
-    singleLine : Boolean = true
+    singleLine : Boolean = true ,
+    showPasswordToggle: Boolean = false,
+    onPasswordToggleClick: (Boolean) -> Unit = {}
 ) {
 
     var isPasswordToggleDirection by remember {
         mutableStateOf(keyboardType == KeyboardType.Password)
     }
-    var isPasswordVisible by remember {
-        mutableStateOf(false)
-    }
 
+    Column(modifier = Modifier.fillMaxWidth()) {
     TextField(
          modifier = modifier.fillMaxWidth()
         ,
@@ -53,14 +56,16 @@ fun StandardTextField(
                 onValueChange(it)
             }
         },
-        isError = isError,
+
+        isError = error != "",
+
         placeholder = {
             Text(
                 text = hint,
                 style = MaterialTheme.typography.body1)
         },
          singleLine = singleLine,
-        visualTransformation = if(!isPasswordVisible && isPasswordToggleDirection){
+        visualTransformation = if(!showPasswordToggle && isPasswordToggleDirection){
             PasswordVisualTransformation()
         }else{
             VisualTransformation.None
@@ -70,9 +75,15 @@ fun StandardTextField(
         trailingIcon = {
             if (isPasswordToggleDirection){
              IconButton(onClick = {
-                 isPasswordVisible =! isPasswordVisible
-             }) {
-                 Icon(imageVector = if(isPasswordVisible){
+               onPasswordToggleClick(!showPasswordToggle)
+             },
+             modifier = Modifier.semantics {
+                 testTag = "password_toggle"
+             }
+
+
+             ) {
+                 Icon(imageVector = if(showPasswordToggle){
                      Icons.Filled.Visibility
                  }else{
                      Icons.Filled.VisibilityOff
@@ -83,5 +94,15 @@ fun StandardTextField(
         }
     )
 
+        if (error.isNotEmpty()){
+            Text(
+                text = error,
+                style = MaterialTheme.typography.body2,
+                color = MaterialTheme.colors.error,
+                textAlign = TextAlign.End,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+    }
 
 }

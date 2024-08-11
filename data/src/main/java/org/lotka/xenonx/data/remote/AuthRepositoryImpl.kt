@@ -48,7 +48,6 @@ class AuthRepositoryImpl @Inject constructor(
                 val profileUpdates = UserProfileChangeRequest.Builder()
                     .setDisplayName(userName)
                     .build()
-
                 user.updateProfile(profileUpdates).await()
 
                 // Emit a success response with the user ID and displayName

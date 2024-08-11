@@ -103,7 +103,7 @@ fun LoginScreen(
                     },
                     singleLine = true,
                     keyboardType = KeyboardType.Text,
-                    isError = false,
+                    error = state.userNameError,
                 )
                 Spacer(modifier = Modifier.height(SpaceMedium))
                 StandardTextField(
@@ -114,7 +114,11 @@ fun LoginScreen(
                     },
                     singleLine = true,
                     keyboardType = KeyboardType.Password,
-                    isError = false,
+                    error = state.passwordError,
+                    showPasswordToggle = state.showPassword,
+                    onPasswordToggleClick = {
+                        viewModel.onEvent(LoginEvent.ShowPassword(it))
+                    }
                 )
                 state?.error.let {
                     if (it != null) {
@@ -127,7 +131,10 @@ fun LoginScreen(
                 }
                 Spacer(modifier = Modifier.height(SpaceMedium))
                 Button(
-                    onClick = { viewModel.onEvent(LoginEvent.Login) },
+                    onClick = {
+                        viewModel.onEvent(LoginEvent.Login)
+                              navController.navigate(ScreensNavigation.ChatScreen.route)
+                              },
                     modifier = Modifier
                         .height(50.dp)
                         .width(120.dp)
@@ -147,21 +154,21 @@ fun LoginScreen(
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
                 }
 
-                state.loginResponse?.let {
-                    Text(
-                        text = "Login successful! Token: ${it.token}",
-                        color = MaterialTheme.colors.primary,
-                        modifier = Modifier.align(Alignment.CenterHorizontally)
-                    )
-                    if (it.token == state.userName || it.token == state.password ){
-                        navController.navigate(ScreensNavigation.ChatScreen.route)
-                    }else{
-                        scope.launch {
-                            scaffoldState.snackbarHostState.showSnackbar(
-                                message = "Please Create An Account")
-                        }
-                    }
-                }
+//                state.loginResponse?.let {
+//                    Text(
+//                        text = "Login successful! Token: ${it.token}",
+//                        color = MaterialTheme.colors.primary,
+//                        modifier = Modifier.align(Alignment.CenterHorizontally)
+//                    )
+//                    if (it.token == state.userName || it.token == state.password ){
+//                        navController.navigate(ScreensNavigation.ChatScreen.route)
+//                    }else{
+//                        scope.launch {
+//                            scaffoldState.snackbarHostState.showSnackbar(
+//                                message = "Please Create An Account")
+//                        }
+//                    }
+//                }
 
             }
 

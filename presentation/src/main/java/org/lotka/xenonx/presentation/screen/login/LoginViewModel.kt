@@ -42,6 +42,23 @@ class LoginViewModel @Inject constructor(
                     _eventFlow.emit(UiEvent.ShowSnakeBar(event.message))
                 }
             }
+
+            is LoginEvent.ShowPassword -> {
+                _state.value = state.value.copy(
+                    showPassword = !state.value.showPassword
+                )
+            }
+
+            is LoginEvent.PasswordError -> {
+                _state.value = state.value.copy(
+                  passwordError = event.passwordError
+                )
+            }
+            is LoginEvent.UserNameError -> {
+                _state.value = state.value.copy(
+                   userNameError = event.userNameError
+                )
+            }
         }
     }
 

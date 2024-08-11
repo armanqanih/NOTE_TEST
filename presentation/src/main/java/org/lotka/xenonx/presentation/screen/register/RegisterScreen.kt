@@ -114,6 +114,9 @@ fun RegisterScreen(
                     keyboardType = KeyboardType.Password,
                     isError = false,
                 )
+
+
+
                 state?.error?.let {
                     if (it.isNotEmpty()) {
                         Text(
@@ -124,7 +127,11 @@ fun RegisterScreen(
                 }
                 Spacer(modifier = Modifier.height(SpaceMedium))
                 Button(
-                    onClick = { viewModel.onEvent(RegisterEvent.Register) },
+                    onClick = {
+                        viewModel.onEvent(RegisterEvent.Register)
+                              navController.navigate(ScreensNavigation.LoginScreen.route)
+
+                              },
                     modifier = Modifier
                         .height(50.dp)
                         .width(120.dp)

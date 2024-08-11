@@ -10,6 +10,7 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runBlockingTest
@@ -32,6 +33,8 @@ class SplashScreenTest{
     @MockK
     lateinit var navController: NavController
 
+    private val testDispatcher = TestCoroutineDispatcher()
+
     @Before
     fun setUp(){
        MockKAnnotations.init(this)
@@ -40,15 +43,26 @@ class SplashScreenTest{
 
 
     @Test
-    fun splashScreen_displayedAndDisappear() {
+    fun splashScreen_displayedAndDisappear() = testDispatcher.runBlockingTest {
 
         composeTestRule.setContent {
             CleanArchitectureNoteAppTheme {
-              SplashScreen(navController = navController)
+              SplashScreen(
+                  navController = navController
+                 , dispatcher = testDispatcher
+              )
             }
         }
-        composeTestRule.onNodeWithContentDescription("Logo").assertExists()
+        composeTestRule.onNodeWithContentDescription("Logo")
+            .assertExists()
 
+        testScheduler.apply { advanceTimeBy(3000L); runCurrent() }
+
+        verify {
+            navController.popBackStack()
+            navController.navigate(ScreensNavigation.LoginScreen.route)
+
+        }
 
     }
 
