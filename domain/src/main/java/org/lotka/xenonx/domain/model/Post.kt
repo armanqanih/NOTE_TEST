@@ -1,7 +1,7 @@
 package org.lotka.xenonx.domain.model
 
 data class Post(
-    val id: Int,
+    val id: Int? = null,
     val userName: String,
     val profileImage: String,
     val postImage: String,

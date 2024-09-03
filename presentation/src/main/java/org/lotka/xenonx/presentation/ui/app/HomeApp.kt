@@ -19,16 +19,15 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
 import org.lotka.xenonx.presentation.screen.home.HomeScreen
-import org.lotka.xenonx.presentation.screen.login.LoginScreen
-import org.lotka.xenonx.presentation.screen.register.RegisterScreen
-import org.lotka.xenonx.presentation.screen.splash.SplashScreen
+
 
 
 import org.lotka.xenonx.presentation.ui.navigation.ScreensNavigation
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-@OptIn(ExperimentalPagerApi::class, ExperimentalMaterialApi::class, ExperimentalComposeUiApi::class,
+@OptIn(
+    ExperimentalPagerApi::class, ExperimentalMaterialApi::class, ExperimentalComposeUiApi::class,
     ExperimentalAnimationApi::class
 )
 @Composable
@@ -51,27 +50,29 @@ fun HomeApp(
 
     Scaffold(
         content = { _ ->
-            NavHost(navController = navController,
-                startDestination = ScreensNavigation.SplashScreen.route) {
+            NavHost(
+                navController = navController,
+                startDestination = ScreensNavigation.SplashScreen.route
+            ) {
                 composable(
                     route = ScreensNavigation.SplashScreen.route,
                 ) {
 
-                  SplashScreen(navController = navController)
+
 
                 }
                 composable(
                     route = ScreensNavigation.LoginScreen.route,
                 ) {
 
-                    LoginScreen(navController = navController)
+
 
                 }
                 composable(
                     route = ScreensNavigation.RegisterScreen.route,
                 ) {
 
-                    RegisterScreen(navController = navController)
+
 
                 }
                 composable(
@@ -79,6 +80,13 @@ fun HomeApp(
                 ) {
 
                     HomeScreen()
+
+                }
+                composable(
+                    route = ScreensNavigation.PostScreen.route,
+                ) {
+
+
 
                 }
 
